@@ -334,119 +334,24 @@ const GAME_CATS = {
   },
 };
 
-const WORK_CATS = {
-  video: {
-    60: [
-      { i:'🎞️', n:'FHD 영상 편집',     d:'기본 컷편집 가능, 효과 추가 시 버벅임',        lv:'mid' },
-      { i:'📺', n:'QHD 영상 편집',     d:'QHD 편집 버벅임 심함 — 비추천',               lv:'no'  },
-      { i:'🎬', n:'4K 영상 편집',      d:'4K 편집 불가',                                lv:'no'  },
-      { i:'⚡', n:'다중 트랙 편집',    d:'레이어 2~3개 이상 버벅임',                     lv:'no'  },
-      { i:'🖥️', n:'렌더링 속도',       d:'FHD 5분 영상 기준 약 20~30분 소요',           lv:'lo'  },
-    ],
-    100: [
-      { i:'🎞️', n:'FHD 영상 편집',     d:'FHD 편집 쾌적, 간단한 효과 실시간 처리',       lv:'ok'  },
-      { i:'📺', n:'QHD 영상 편집',     d:'QHD 기본 편집 가능, 복잡한 효과 느림',          lv:'mid' },
-      { i:'🎬', n:'4K 영상 편집',      d:'4K 컷편집만 가능, 효과 렌더링 필요',           lv:'lo'  },
-      { i:'⚡', n:'다중 트랙 편집',    d:'FHD 기준 4~6개 트랙 편집 가능',               lv:'mid' },
-      { i:'🖥️', n:'렌더링 속도',       d:'FHD 5분 영상 기준 약 8~12분 소요',            lv:'mid' },
-    ],
-    120: [
-      { i:'🎞️', n:'FHD 영상 편집',     d:'FHD 편집 완벽, 고급 효과 실시간 처리',         lv:'ok'  },
-      { i:'📺', n:'QHD 영상 편집',     d:'QHD 편집 쾌적, 복잡한 효과도 원활',            lv:'ok'  },
-      { i:'🎬', n:'4K 영상 편집',      d:'4K 편집 쾌적, 기본 색보정 실시간 가능',        lv:'ok'  },
-      { i:'⚡', n:'다중 트랙 편집',    d:'4K 기준 4~6개 트랙 멀티레이어 편집 가능',      lv:'ok'  },
-      { i:'🖥️', n:'렌더링 속도',       d:'FHD 5분 영상 기준 약 3~5분 소요',             lv:'ok'  },
-    ],
-    140: [
-      { i:'🎞️', n:'FHD 영상 편집',     d:'모든 FHD 작업 완벽',                          lv:'ok'  },
-      { i:'📺', n:'QHD 영상 편집',     d:'QHD 고급 효과·VFX 실시간 처리',               lv:'ok'  },
-      { i:'🎬', n:'4K 영상 편집',      d:'4K 멀티트랙·고급 색보정·실시간 미리보기',      lv:'ok'  },
-      { i:'⚡', n:'다중 트랙 편집',    d:'4K 8트랙 이상 복잡한 시퀀스 가능',             lv:'ok'  },
-      { i:'🖥️', n:'렌더링 속도',       d:'FHD 5분 영상 기준 약 1~2분 소요',             lv:'ok'  },
-    ],
-    160: [
-      { i:'🎞️', n:'FHD·QHD 영상 편집', d:'모든 해상도 제약 없이 완벽 지원',              lv:'ok'  },
-      { i:'📺', n:'4K·8K 영상 편집',   d:'8K 영상 편집·복잡한 VFX 실시간 처리',         lv:'ok'  },
-      { i:'🎬', n:'방송 수준 편집',    d:'방송·영화 수준의 편집 환경 지원',              lv:'ok'  },
-      { i:'⚡', n:'다중 트랙 편집',    d:'8K 기준 고복잡도 멀티트랙 자유롭게 가능',      lv:'ok'  },
-      { i:'🖥️', n:'렌더링 속도',       d:'FHD 5분 영상 기준 약 30초~1분 소요',          lv:'ok'  },
-    ],
-  },
-  office: {
-    60: [
-      { i:'📄', n:'문서 작업',          d:'Word·Excel·PPT 기본 작업 쾌적',               lv:'ok'  },
-      { i:'🌐', n:'웹브라우저 멀티탭',  d:'탭 10개 이하 원활, 그 이상 느려짐',           lv:'mid' },
-      { i:'📹', n:'화상회의',           d:'Zoom·Teams 기본 화상회의 가능',               lv:'ok'  },
-      { i:'🖼️', n:'포토샵·이미지 편집', d:'간단한 보정 작업 가능, 고해상도 느림',         lv:'mid' },
-      { i:'🔀', n:'멀티태스킹',         d:'프로그램 2~3개 동시 실행 가능',               lv:'mid' },
-    ],
-    100: [
-      { i:'📄', n:'문서 작업',          d:'대용량 엑셀·복잡한 수식도 빠르게 처리',        lv:'ok'  },
-      { i:'🌐', n:'웹브라우저 멀티탭',  d:'탭 20개 이상도 원활하게 사용 가능',           lv:'ok'  },
-      { i:'📹', n:'화상회의',           d:'고화질 화상회의·화면 공유 동시 지원',          lv:'ok'  },
-      { i:'🖼️', n:'포토샵·이미지 편집', d:'포토샵·일러스트레이터 원활하게 사용',          lv:'ok'  },
-      { i:'🔀', n:'멀티태스킹',         d:'4~5개 프로그램 동시 실행 쾌적',               lv:'ok'  },
-    ],
-    120: [
-      { i:'📄', n:'문서 작업',          d:'어떤 문서 환경도 완벽 지원',                  lv:'ok'  },
-      { i:'🌐', n:'웹브라우저 멀티탭',  d:'수십 개 탭·멀티 브라우저 동시 사용 가능',     lv:'ok'  },
-      { i:'📹', n:'화상회의',           d:'4K 화상회의·다중 참가자 화면 처리 완벽',       lv:'ok'  },
-      { i:'🖼️', n:'포토샵·이미지 편집', d:'RAW 대용량 파일·복잡한 이펙트 실시간',         lv:'ok'  },
-      { i:'🔀', n:'멀티태스킹',         d:'10개 이상 프로그램 동시 실행 쾌적',           lv:'ok'  },
-    ],
-    140: [
-      { i:'📄', n:'문서 작업',          d:'모든 협업·문서 환경 완벽 지원',               lv:'ok'  },
-      { i:'🌐', n:'웹브라우저 멀티탭',  d:'멀티 브라우저 + 스트리밍 동시에 완벽',         lv:'ok'  },
-      { i:'📹', n:'화상회의',           d:'다중 고화질 화상회의·라이브 방송 동시 가능',   lv:'ok'  },
-      { i:'🖼️', n:'포토샵·이미지 편집', d:'AI 보정·초대형 파일 즉시 처리',               lv:'ok'  },
-      { i:'🔀', n:'멀티태스킹',         d:'제약 없는 멀티태스킹 환경',                   lv:'ok'  },
-    ],
-    160: [
-      { i:'📄', n:'문서 작업',          d:'퍼포먼스 최대 — 제약 없음',                   lv:'ok'  },
-      { i:'🌐', n:'웹브라우저 멀티탭',  d:'수백 개 탭도 완벽하게 처리',                  lv:'ok'  },
-      { i:'📹', n:'화상회의',           d:'8K 스트리밍·다중 방송 동시 운영 가능',         lv:'ok'  },
-      { i:'🖼️', n:'포토샵·AI 보정',     d:'AI 보정·초대용량 RAW 즉시 처리',              lv:'ok'  },
-      { i:'🔀', n:'멀티태스킹',         d:'수십 개 고사양 앱 동시 실행 완벽',             lv:'ok'  },
-    ],
-  },
-  modeling: {
-    60: [
-      { i:'📐', n:'AutoCAD 2D',         d:'2D 도면 작업 가능, 복잡한 도면 느림',          lv:'mid' },
-      { i:'🧊', n:'Blender 모델링',     d:'기초 모델링 가능, 복잡한 씬 버벅임',           lv:'lo'  },
-      { i:'💡', n:'3D 렌더링',          d:'저해상도 렌더링만 가능 — 실무 비추천',         lv:'no'  },
-      { i:'🏢', n:'BIM (Revit 등)',      d:'BIM 작업 불가',                               lv:'no'  },
-      { i:'🔬', n:'시뮬레이션',         d:'시뮬레이션 작업 불가',                         lv:'no'  },
-    ],
-    100: [
-      { i:'📐', n:'AutoCAD 2D·3D',      d:'2D·기초 3D CAD 작업 원활',                    lv:'ok'  },
-      { i:'🧊', n:'Blender 모델링',     d:'중급 모델링 가능, 고폴리 씬 느림',             lv:'mid' },
-      { i:'💡', n:'3D 렌더링',          d:'FHD 기준 저~중간 품질 렌더링 가능',            lv:'lo'  },
-      { i:'🏢', n:'BIM (Revit 등)',      d:'소규모 BIM 프로젝트 가능',                    lv:'lo'  },
-      { i:'🔬', n:'시뮬레이션',         d:'간단한 물리 시뮬레이션만 가능',                lv:'no'  },
-    ],
-    120: [
-      { i:'📐', n:'AutoCAD·SolidWorks', d:'3D CAD 작업 원활, 조립 어셈블리 처리 가능',    lv:'ok'  },
-      { i:'🧊', n:'Blender 모델링',     d:'고폴리 모델링·텍스처 작업 쾌적',              lv:'ok'  },
-      { i:'💡', n:'3D 렌더링',          d:'중간 품질 3D 렌더링 원활, GPU 렌더 가능',      lv:'mid' },
-      { i:'🏢', n:'BIM (Revit 등)',      d:'중규모 BIM 프로젝트 가능',                    lv:'mid' },
-      { i:'🔬', n:'시뮬레이션',         d:'기초 CFD·구조 시뮬레이션 가능',               lv:'lo'  },
-    ],
-    140: [
-      { i:'📐', n:'AutoCAD·SolidWorks', d:'대형 어셈블리·복잡한 3D CAD 쾌적',            lv:'ok'  },
-      { i:'🧊', n:'Blender 모델링',     d:'고사양 씬·애니메이션 작업 원활',              lv:'ok'  },
-      { i:'💡', n:'3D 렌더링',          d:'고품질 GPU 렌더링 원활, 실시간 프리뷰 가능',   lv:'ok'  },
-      { i:'🏢', n:'BIM (Revit 등)',      d:'대규모 BIM 프로젝트 원활',                    lv:'ok'  },
-      { i:'🔬', n:'시뮬레이션',         d:'중급 시뮬레이션·유한요소 해석 가능',           lv:'mid' },
-    ],
-    160: [
-      { i:'📐', n:'AutoCAD·SolidWorks', d:'최고 수준 대형 어셈블리 제약 없음',            lv:'ok'  },
-      { i:'🧊', n:'Blender 모델링',     d:'영화 수준의 고사양 씬·VFX 작업 가능',         lv:'ok'  },
-      { i:'💡', n:'3D 렌더링',          d:'실시간 레이트레이싱·최고품질 렌더링 가능',     lv:'ok'  },
-      { i:'🏢', n:'BIM (Revit 등)',      d:'초대형 BIM 프로젝트·클라우드 연동 완벽',       lv:'ok'  },
-      { i:'🔬', n:'시뮬레이션',         d:'고급 CFD·구조·열해석 시뮬레이션 가능',         lv:'ok'  },
-    ],
-  },
-};
+// work_performance 데이터 - Supabase에서 로드
+let WORK_CATS = { video: {}, office: {}, modeling: {} };
+
+async function loadWorkPerf() {
+  try {
+    const h = { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` };
+    const res = await fetch(`${SB_URL}/rest/v1/work_performance?select=*&order=tier.asc,sort_order.asc`, { headers: h });
+    if (!res.ok) return;
+    const rows = await res.json();
+    const tmp = { video: {}, office: {}, modeling: {} };
+    rows.forEach(r => {
+      if (!tmp[r.category]) return;
+      if (!tmp[r.category][r.tier]) tmp[r.category][r.tier] = [];
+      tmp[r.category][r.tier].push({ i: r.icon, n: r.name, d: r.description, lv: r.level });
+    });
+    WORK_CATS = tmp;
+  } catch (e) { /* fallback: 빈 배열 유지 */ }
+}
 
 let activeTab = 'fps';
 
@@ -573,13 +478,48 @@ function renderCompItem(p) {
   </a>`;
 }
 
+// GPU 칩셋 추출 (RTX 4070, RX 7600 등 핵심 모델명)
+function gpuChip(str) {
+  if (!str) return '';
+  const m = str.match(/(RTX\s*\d+\w*|RX\s*\d+\w*|GTX\s*\d+\w*|Arc\s*\w+)/i);
+  return m ? m[0].replace(/\s+/g, '').toLowerCase() : str.slice(0, 10).toLowerCase();
+}
+// CPU 브랜드 추출 (AMD / Intel)
+function cpuBrand(str) {
+  if (!str) return '';
+  if (/AMD|라이젠/i.test(str))   return 'amd';
+  if (/인텔|Intel|코어i/i.test(str)) return 'intel';
+  return '';
+}
+
 function renderCompare(product, all) {
-  const idx   = PERF_ORDER.indexOf(product.performance);
-  const upP   = PERF_ORDER[idx + 1];
-  const loP   = PERF_ORDER[idx - 1];
-  const same  = all.filter(p => p.id !== product.id && p.performance === product.performance && !p.is_soldout).slice(0, 1);
-  const upper = upP ? all.filter(p => p.performance === upP  && !p.is_soldout).slice(0, 1) : [];
-  const lower = loP ? all.filter(p => p.performance === loP  && !p.is_soldout).slice(0, 1) : [];
+  const idx    = PERF_ORDER.indexOf(product.performance);
+  const upP    = PERF_ORDER[idx + 1];
+  const loP    = PERF_ORDER[idx - 1];
+  const curGpu = gpuChip(product.gpu);
+  const curCpu = cpuBrand(product.cpu);
+
+  const samePool = all.filter(p => p.id !== product.id && p.performance === product.performance && !p.is_soldout);
+  // 다른 GPU 칩셋 우선, 없으면 다른 CPU 브랜드, 없으면 그냥 첫 번째
+  const same = (
+    samePool.filter(p => gpuChip(p.gpu) !== curGpu).slice(0, 1).length
+      ? samePool.filter(p => gpuChip(p.gpu) !== curGpu).slice(0, 1)
+      : samePool.filter(p => cpuBrand(p.cpu) !== curCpu).slice(0, 1).length
+        ? samePool.filter(p => cpuBrand(p.cpu) !== curCpu).slice(0, 1)
+        : samePool.slice(0, 1)
+  );
+
+  // 상급: 같은 CPU 브랜드 우선, 없으면 첫 번째
+  const upperPool = upP ? all.filter(p => p.performance === upP && !p.is_soldout) : [];
+  const upper = upperPool.filter(p => cpuBrand(p.cpu) === curCpu).slice(0, 1).length
+    ? upperPool.filter(p => cpuBrand(p.cpu) === curCpu).slice(0, 1)
+    : upperPool.slice(0, 1);
+
+  // 가성비: 같은 CPU 브랜드 우선, 없으면 첫 번째
+  const lowerPool = loP ? all.filter(p => p.performance === loP && !p.is_soldout) : [];
+  const lower = lowerPool.filter(p => cpuBrand(p.cpu) === curCpu).slice(0, 1).length
+    ? lowerPool.filter(p => cpuBrand(p.cpu) === curCpu).slice(0, 1)
+    : lowerPool.slice(0, 1);
   const upMeta = upP ? PERF_META[upP] : null;
   const loMeta = loP ? PERF_META[loP] : null;
 
@@ -654,6 +594,7 @@ _ro.observe(document.body);
     const [pRes, aRes] = await Promise.all([
       fetch(`${SB_URL}/rest/v1/pc_products?it_id=eq.${itId}&select=*`, { headers: h }),
       fetch(`${SB_URL}/rest/v1/pc_products?select=*&order=performance.asc,it_price.asc`, { headers: h }),
+      loadWorkPerf(),
     ]);
     if (!pRes.ok || !aRes.ok) throw new Error('데이터 로드 실패');
     const [products, all] = await Promise.all([pRes.json(), aRes.json()]);

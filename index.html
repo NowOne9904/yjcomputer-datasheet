@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>영재컴퓨터 PC 성능 가이드</title>
+  <style>
+    :root {
+      --bg:       #f5f6f8;
+      --white:    #ffffff;
+      --card:     #ffffff;
+      --card2:    #f9fafb;
+      --hover:    #f0f4ff;
+      --bdr:      #e5e7eb;
+      --bdrL:     #d1d5db;
+      --t1:       #111827;
+      --t2:       #4b5563;
+      --t3:       #9ca3af;
+      --primary:  #3b52e4;
+      --primaryL: #6474f0;
+      --primaryBg:#eef0fd;
+      --emerald:  #059669;
+      --emeraldBg:#ecfdf5;
+      --amber:    #d97706;
+      --amberBg:  #fffbeb;
+      --rose:     #e11d48;
+      --roseBg:   #fff1f2;
+      --sky:      #0284c7;
+      --skyBg:    #f0f9ff;
+      --purple:   #7c3aed;
+      --purpleBg: #f5f3ff;
+      --kakao:    #fee500;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--t1);
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 100%; margin: 0 auto; padding: 14px 16px 36px; }
+
+    /* ── Loading / Error ── */
+    .center {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 56px 20px; gap: 12px; color: var(--t3);
+    }
+    .loader {
+      width: 28px; height: 28px;
+      border: 3px solid var(--bdr);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Info section header ── */
+    .info-head { padding: 16px 16px 14px; }
+    .info-title-row {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px; margin-bottom: 12px;
+    }
+    .section-divider { height: 1px; background: var(--bdr); margin: 0 16px; }
+
+    /* ── Top bar ── */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 16px;
+      background: var(--white);
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .brand { font-size: 10px; color: var(--t3); letter-spacing: .06em; font-weight: 500; }
+    .pagetitle { font-size: 14px; font-weight: 700; color: var(--t1); }
+    .live { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--t3); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ── Hero ── */
+    .hero {
+      background: var(--white);
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .hero-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px; margin-bottom: 12px;
+    }
+    .hero-title { font-size: 13.5px; font-weight: 700; flex: 1; line-height: 1.5; color: var(--t1); }
+    .hero-badges { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+
+    .badge {
+      display: inline-flex; align-items: center;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700; white-space: nowrap;
+      border: 1px solid;
+    }
+    .bt60  { background:#f3f4f6;            color:#6b7280; border-color:#d1d5db; }
+    .bt100 { background:var(--emeraldBg);   color:var(--emerald); border-color:#a7f3d0; }
+    .bt120 { background:var(--primaryBg);   color:var(--primary); border-color:#c7d2fe; }
+    .bt140 { background:var(--amberBg);     color:var(--amber);   border-color:#fde68a; }
+    .bt160 { background:var(--purpleBg);    color:var(--purple);  border-color:#ddd6fe; }
+    .bsold { background:var(--roseBg);      color:var(--rose);    border-color:#fecdd3; }
+    .bprice{ background:var(--skyBg);       color:var(--sky);     border-color:#bae6fd; font-size:11px; }
+
+    .hero-specs { display: flex; flex-direction: column; gap: 5px; }
+    .sr { display: flex; gap: 8px; align-items: baseline; }
+    .sk { font-size: 10px; color: var(--t3); font-weight: 600; width: 30px; flex-shrink: 0; letter-spacing:.03em; }
+    .sv { font-size: 12px; color: var(--t2); flex: 1; }
+    .sv.hl { color: var(--t1); font-weight: 500; }
+
+    /* ── Section card ── */
+    .section {
+      background: var(--white);
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .sec-head {
+      padding: 13px 16px 0;
+      font-size: 12px; font-weight: 700; color: var(--t1);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .sec-sub { font-size: 10px; color: var(--t3); font-weight: 400; margin-left: 2px; }
+
+    /* ── Resolution ── */
+    .res-row { display: flex; gap: 7px; padding: 10px 16px 14px; flex-wrap: wrap; }
+    .rbadge {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      padding: 8px 14px; border-radius: 10px;
+      font-size: 11px; font-weight: 700; border: 1px solid;
+      min-width: 76px;
+    }
+    .rlabel { font-size: 10px; font-weight: 400; opacity: .7; margin-bottom: 1px; }
+    .rok  { background:var(--emeraldBg); color:var(--emerald); border-color:#a7f3d0; }
+    .rmid { background:var(--primaryBg); color:var(--primary); border-color:#c7d2fe; }
+    .rlo  { background:var(--amberBg);   color:var(--amber);   border-color:#fde68a; }
+    .rno  { background:#f9fafb;          color:var(--t3);      border-color:var(--bdr); }
+
+    /* ── Tabs ── */
+    .tabs { display: flex; gap: 5px; padding: 10px 16px; flex-wrap: wrap; border-bottom: 1px solid var(--bdr); }
+    .tab {
+      padding: 5px 13px; border-radius: 7px;
+      border: 1px solid var(--bdrL); background: transparent;
+      color: var(--t2); cursor: pointer; font-size: 11px; font-weight: 600;
+      transition: all .12s;
+    }
+    .tab:hover { background: var(--hover); border-color: var(--primary); color: var(--primary); }
+    .tab.on { background: var(--primaryBg); border-color: var(--primary); color: var(--primary); }
+
+    /* ── Game grid ── */
+    .ggrid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 12px 16px 16px; }
+    @media (max-width:400px) { .ggrid { grid-template-columns: 1fr; } }
+    .gitem {
+      background: var(--card2); border: 1px solid var(--bdr);
+      border-radius: 9px; padding: 10px 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .gname { font-size: 11.5px; color: var(--t2); flex: 1; font-weight: 500; }
+    .gfps  { font-size: 15px; font-weight: 800; }
+    .gfps .unit { font-size: 9px; font-weight: 400; color: var(--t3); }
+    .fps-hi  { color: var(--emerald); }
+    .fps-mid { color: var(--sky); }
+    .fps-lo  { color: var(--amber); }
+    .fps-xlo { color: var(--rose); }
+    .gbar { width: 42px; height: 5px; background: var(--bdr); border-radius: 99px; overflow: hidden; flex-shrink: 0; }
+    .gfill { height: 100%; border-radius: 99px; }
+
+    /* ── Work grid ── */
+    .wgrid { display: flex; flex-direction: column; gap: 6px; padding: 12px 16px 16px; }
+    .witem {
+      background: var(--card2); border: 1px solid var(--bdr);
+      border-radius: 9px; padding: 10px 13px;
+      display: flex; align-items: center; gap: 11px;
+    }
+    .wico  { font-size: 18px; flex-shrink: 0; }
+    .wbody { flex: 1; }
+    .wname { font-size: 12px; font-weight: 600; color: var(--t1); }
+    .wdesc { font-size: 10.5px; color: var(--t2); margin-top: 2px; }
+    .wlv { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 6px; flex-shrink: 0; border: 1px solid; }
+    .lv-ok  { background:var(--emeraldBg); color:var(--emerald); border-color:#a7f3d0; }
+    .lv-mid { background:var(--primaryBg); color:var(--primary); border-color:#c7d2fe; }
+    .lv-lo  { background:var(--amberBg);   color:var(--amber);   border-color:#fde68a; }
+    .lv-no  { background:#f9fafb;          color:var(--t3);      border-color:var(--bdr); }
+
+    /* ── Compare ── */
+    .cmp-cols {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px; padding: 12px 16px 16px;
+      align-items: stretch;
+    }
+    @media (max-width:520px) { .cmp-cols { grid-template-columns: 1fr; } }
+    .ccol {
+      background: var(--card2); border: 1px solid var(--bdr); border-radius: 10px; padding: 11px;
+      display: flex; flex-direction: column;
+    }
+    .clabel {
+      font-size: 10.5px; font-weight: 700; margin-bottom: 9px;
+      display: flex; align-items: center; gap: 4px; color: var(--t1);
+      flex-shrink: 0;
+    }
+    .clabel .sub { font-size: 10px; font-weight: 400; color: var(--t3); }
+    .citem {
+      background: var(--white); border: 1px solid var(--bdr);
+      border-radius: 8px; padding: 9px 10px;
+      text-decoration: none; display: flex; flex-direction: column;
+      transition: all .12s; cursor: pointer; flex: 1;
+    }
+    .citem:hover { border-color: var(--primary); background: var(--hover); }
+    .cthumb-wrap {
+      width: 100%; aspect-ratio: 1/1; border-radius: 6px;
+      overflow: hidden; background: #f3f4f6;
+      margin-bottom: 8px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .cthumb {
+      width: 100%; height: 100%; object-fit: contain;
+      transition: transform .2s;
+      image-rendering: -webkit-optimize-contrast;
+    }
+    .citem:hover .cthumb { transform: scale(1.04); }
+    .cthumb-fallback {
+      font-size: 28px; color: var(--t3);
+    }
+    .ctl  { font-size: 11px; font-weight: 600; color: var(--t1); line-height: 1.4; margin-bottom: 4px; }
+    .csp  { font-size: 10px; color: var(--t3); line-height: 1.5; }
+    .cpri { font-size: 10px; color: var(--sky); font-weight: 700; margin-top: 4px; }
+    .citem-spacer { flex: 1; }
+    .clnk {
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      width: 100%; padding: 6px 8px; margin-top: 7px;
+      background: var(--primary); color: #fff;
+      border-radius: 6px; font-size: 10.5px; font-weight: 700;
+      text-decoration: none; transition: background .12s;
+    }
+    .clnk:hover { background: var(--primaryL); }
+    .cempty {
+      font-size: 10.5px; color: var(--t3); text-align: center;
+      padding: 14px 0; flex: 1; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--bdr); margin: 0 16px; }
+
+    /* ── Footer ── */
+    .footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; background: var(--white);
+      border: 1px solid var(--bdr); border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .ftxt { font-size: 10px; color: var(--t3); }
+    .kakaobtn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 14px; background: var(--kakao); color: #3c1e1e;
+      border-radius: 7px; font-size: 11px; font-weight: 700;
+      text-decoration: none; transition: opacity .12s;
+    }
+    .kakaobtn:hover { opacity: .88; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bdrL); border-radius: 99px; }
+  </style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <div class="center" id="loading">
+    <div class="loader"></div>
+    <span style="font-size:12px;color:#9ca3af">성능 데이터 불러오는 중...</span>
+  </div>
+</div>
+
+<script>
+const SB_URL = 'https://kaewzfjssmcxeofgezww.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthZXd6Zmpzc21jeGVvZmdlend3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMTU2OTYsImV4cCI6MjA4OTc5MTY5Nn0.yXKZmS7I-6PcsEKLoW3-esytSg_49MkCNM3nxULn0j8';
+const SHOP   = 'https://www.youngjaecomputer.com/shop/item.php?it_id=';
+
+const PERF_META = {
+  60:  { label:'입문급',  cls:'bt60',  emoji:'🟤' },
+  100: { label:'일반',    cls:'bt100', emoji:'🟢' },
+  120: { label:'중급',    cls:'bt120', emoji:'🔵' },
+  140: { label:'고급',    cls:'bt140', emoji:'🟡' },
+  160: { label:'최고급',  cls:'bt160', emoji:'🟣' },
+};
+const PERF_ORDER = [60, 100, 120, 140, 160];
+
+const RES = {
+  60:  { fhd:'ok',  qhd:'no',  k4:'no'  },
+  100: { fhd:'ok',  qhd:'mid', k4:'no'  },
+  120: { fhd:'ok',  qhd:'ok',  k4:'lo'  },
+  140: { fhd:'ok',  qhd:'ok',  k4:'mid' },
+  160: { fhd:'ok',  qhd:'ok',  k4:'ok'  },
+};
+const RES_TEXT = { ok:'최적',    mid:'가능',    lo:'제한적',  no:'비추천' };
+const RES_ICON = { ok:'✅',      mid:'🟡',      lo:'⚠️',      no:'✖' };
+const RES_CLS  = { ok:'rok',     mid:'rmid',    lo:'rlo',     no:'rno' };
+
+const GAME_CATS = {
+  fps: {
+    tab: '🎯 FPS 게임',
+    items: [
+      { name:'발로란트',      fps:{ 60:130, 100:240, 120:350, 140:480, 160:600 }, max:650 },
+      { name:'배틀그라운드',  fps:{ 60:55,  100:100, 120:145, 140:185, 160:235 }, max:260 },
+      { name:'오버워치 2',    fps:{ 60:80,  100:144, 120:200, 140:260, 160:320 }, max:360 },
+      { name:'사이버펑크 2077', fps:{ 60:35,  100:60,  120:85,  140:115, 160:150 }, max:170 },
+    ],
+  },
+  rpg: {
+    tab: '⚔️ RPG·MMORPG',
+    items: [
+      { name:'로스트아크',    fps:{ 60:55,  100:90,  120:110, 140:135, 160:160 }, max:180 },
+      { name:'디아블로 4',    fps:{ 60:40,  100:70,  120:100, 140:130, 160:160 }, max:180 },
+      { name:'붉은사막',      fps:{ 60:25,  100:55,  120:80,  140:110, 160:140 }, max:160 },
+      { name:'아이온 2',      fps:{ 60:40,  100:70,  120:100, 140:125, 160:155 }, max:175 },
+    ],
+  },
+  lol: {
+    tab: '⚡ LoL 계열',
+    items: [
+      { name:'리그오브레전드', fps:{ 60:144, 100:200, 120:300, 140:400, 160:500 }, max:560 },
+      { name:'TFT',            fps:{ 60:60,  100:120, 120:144, 140:144, 160:144 }, max:160 },
+      { name:'2XKO',           fps:{ 60:60,  100:100, 120:144, 140:180, 160:240 }, max:270 },
+      { name:'와일드리프트',   fps:{ 60:60,  100:120, 120:144, 140:144, 160:144 }, max:160 },
+    ],
+  },
+};
+
+const WORK_CATS = {
+  video: {
+    60: [
+      { i:'🎞️', n:'FHD 영상 편집',     d:'기본 컷편집 가능, 효과 추가 시 버벅임',        lv:'mid' },
+      { i:'📺', n:'QHD 영상 편집',     d:'QHD 편집 버벅임 심함 — 비추천',               lv:'no'  },
+      { i:'🎬', n:'4K 영상 편집',      d:'4K 편집 불가',                                lv:'no'  },
+      { i:'⚡', n:'다중 트랙 편집',    d:'레이어 2~3개 이상 버벅임',                     lv:'no'  },
+      { i:'🖥️', n:'렌더링 속도',       d:'FHD 5분 영상 기준 약 20~30분 소요',           lv:'lo'  },
+    ],
+    100: [
+      { i:'🎞️', n:'FHD 영상 편집',     d:'FHD 편집 쾌적, 간단한 효과 실시간 처리',       lv:'ok'  },
+      { i:'📺', n:'QHD 영상 편집',     d:'QHD 기본 편집 가능, 복잡한 효과 느림',          lv:'mid' },
+      { i:'🎬', n:'4K 영상 편집',      d:'4K 컷편집만 가능, 효과 렌더링 필요',           lv:'lo'  },
+      { i:'⚡', n:'다중 트랙 편집',    d:'FHD 기준 4~6개 트랙 편집 가능',               lv:'mid' },
+      { i:'🖥️', n:'렌더링 속도',       d:'FHD 5분 영상 기준 약 8~12분 소요',            lv:'mid' },
+    ],
+    120: [
+      { i:'🎞️', n:'FHD 영상 편집',     d:'FHD 편집 완벽, 고급 효과 실시간 처리',         lv:'ok'  },
+      { i:'📺', n:'QHD 영상 편집',     d:'QHD 편집 쾌적, 복잡한 효과도 원활',            lv:'ok'  },
+      { i:'🎬', n:'4K 영상 편집',      d:'4K 편집 쾌적, 기본 색보정 실시간 가능',        lv:'ok'  },
+      { i:'⚡', n:'다중 트랙 편집',    d:'4K 기준 4~6개 트랙 멀티레이어 편집 가능',      lv:'ok'  },
+      { i:'🖥️', n:'렌더링 속도',       d:'FHD 5분 영상 기준 약 3~5분 소요',             lv:'ok'  },
+    ],
+    140: [
+      { i:'🎞️', n:'FHD 영상 편집',     d:'모든 FHD 작업 완벽',                          lv:'ok'  },
+      { i:'📺', n:'QHD 영상 편집',     d:'QHD 고급 효과·VFX 실시간 처리',               lv:'ok'  },
+      { i:'🎬', n:'4K 영상 편집',      d:'4K 멀티트랙·고급 색보정·실시간 미리보기',      lv:'ok'  },
+      { i:'⚡', n:'다중 트랙 편집',    d:'4K 8트랙 이상 복잡한 시퀀스 가능',             lv:'ok'  },
+      { i:'🖥️', n:'렌더링 속도',       d:'FHD 5분 영상 기준 약 1~2분 소요',             lv:'ok'  },
+    ],
+    160: [
+      { i:'🎞️', n:'FHD·QHD 영상 편집', d:'모든 해상도 제약 없이 완벽 지원',              lv:'ok'  },
+      { i:'📺', n:'4K·8K 영상 편집',   d:'8K 영상 편집·복잡한 VFX 실시간 처리',         lv:'ok'  },
+      { i:'🎬', n:'방송 수준 편집',    d:'방송·영화 수준의 편집 환경 지원',              lv:'ok'  },
+      { i:'⚡', n:'다중 트랙 편집',    d:'8K 기준 고복잡도 멀티트랙 자유롭게 가능',      lv:'ok'  },
+      { i:'🖥️', n:'렌더링 속도',       d:'FHD 5분 영상 기준 약 30초~1분 소요',          lv:'ok'  },
+    ],
+  },
+  office: {
+    60: [
+      { i:'📄', n:'문서 작업',          d:'Word·Excel·PPT 기본 작업 쾌적',               lv:'ok'  },
+      { i:'🌐', n:'웹브라우저 멀티탭',  d:'탭 10개 이하 원활, 그 이상 느려짐',           lv:'mid' },
+      { i:'📹', n:'화상회의',           d:'Zoom·Teams 기본 화상회의 가능',               lv:'ok'  },
+      { i:'🖼️', n:'포토샵·이미지 편집', d:'간단한 보정 작업 가능, 고해상도 느림',         lv:'mid' },
+      { i:'🔀', n:'멀티태스킹',         d:'프로그램 2~3개 동시 실행 가능',               lv:'mid' },
+    ],
+    100: [
+      { i:'📄', n:'문서 작업',          d:'대용량 엑셀·복잡한 수식도 빠르게 처리',        lv:'ok'  },
+      { i:'🌐', n:'웹브라우저 멀티탭',  d:'탭 20개 이상도 원활하게 사용 가능',           lv:'ok'  },
+      { i:'📹', n:'화상회의',           d:'고화질 화상회의·화면 공유 동시 지원',          lv:'ok'  },
+      { i:'🖼️', n:'포토샵·이미지 편집', d:'포토샵·일러스트레이터 원활하게 사용',          lv:'ok'  },
+      { i:'🔀', n:'멀티태스킹',         d:'4~5개 프로그램 동시 실행 쾌적',               lv:'ok'  },
+    ],
+    120: [
+      { i:'📄', n:'문서 작업',          d:'어떤 문서 환경도 완벽 지원',                  lv:'ok'  },
+      { i:'🌐', n:'웹브라우저 멀티탭',  d:'수십 개 탭·멀티 브라우저 동시 사용 가능',     lv:'ok'  },
+      { i:'📹', n:'화상회의',           d:'4K 화상회의·다중 참가자 화면 처리 완벽',       lv:'ok'  },
+      { i:'🖼️', n:'포토샵·이미지 편집', d:'RAW 대용량 파일·복잡한 이펙트 실시간',         lv:'ok'  },
+      { i:'🔀', n:'멀티태스킹',         d:'10개 이상 프로그램 동시 실행 쾌적',           lv:'ok'  },
+    ],
+    140: [
+      { i:'📄', n:'문서 작업',          d:'모든 협업·문서 환경 완벽 지원',               lv:'ok'  },
+      { i:'🌐', n:'웹브라우저 멀티탭',  d:'멀티 브라우저 + 스트리밍 동시에 완벽',         lv:'ok'  },
+      { i:'📹', n:'화상회의',           d:'다중 고화질 화상회의·라이브 방송 동시 가능',   lv:'ok'  },
+      { i:'🖼️', n:'포토샵·이미지 편집', d:'AI 보정·초대형 파일 즉시 처리',               lv:'ok'  },
+      { i:'🔀', n:'멀티태스킹',         d:'제약 없는 멀티태스킹 환경',                   lv:'ok'  },
+    ],
+    160: [
+      { i:'📄', n:'문서 작업',          d:'퍼포먼스 최대 — 제약 없음',                   lv:'ok'  },
+      { i:'🌐', n:'웹브라우저 멀티탭',  d:'수백 개 탭도 완벽하게 처리',                  lv:'ok'  },
+      { i:'📹', n:'화상회의',           d:'8K 스트리밍·다중 방송 동시 운영 가능',         lv:'ok'  },
+      { i:'🖼️', n:'포토샵·AI 보정',     d:'AI 보정·초대용량 RAW 즉시 처리',              lv:'ok'  },
+      { i:'🔀', n:'멀티태스킹',         d:'수십 개 고사양 앱 동시 실행 완벽',             lv:'ok'  },
+    ],
+  },
+  modeling: {
+    60: [
+      { i:'📐', n:'AutoCAD 2D',         d:'2D 도면 작업 가능, 복잡한 도면 느림',          lv:'mid' },
+      { i:'🧊', n:'Blender 모델링',     d:'기초 모델링 가능, 복잡한 씬 버벅임',           lv:'lo'  },
+      { i:'💡', n:'3D 렌더링',          d:'저해상도 렌더링만 가능 — 실무 비추천',         lv:'no'  },
+      { i:'🏢', n:'BIM (Revit 등)',      d:'BIM 작업 불가',                               lv:'no'  },
+      { i:'🔬', n:'시뮬레이션',         d:'시뮬레이션 작업 불가',                         lv:'no'  },
+    ],
+    100: [
+      { i:'📐', n:'AutoCAD 2D·3D',      d:'2D·기초 3D CAD 작업 원활',                    lv:'ok'  },
+      { i:'🧊', n:'Blender 모델링',     d:'중급 모델링 가능, 고폴리 씬 느림',             lv:'mid' },
+      { i:'💡', n:'3D 렌더링',          d:'FHD 기준 저~중간 품질 렌더링 가능',            lv:'lo'  },
+      { i:'🏢', n:'BIM (Revit 등)',      d:'소규모 BIM 프로젝트 가능',                    lv:'lo'  },
+      { i:'🔬', n:'시뮬레이션',         d:'간단한 물리 시뮬레이션만 가능',                lv:'no'  },
+    ],
+    120: [
+      { i:'📐', n:'AutoCAD·SolidWorks', d:'3D CAD 작업 원활, 조립 어셈블리 처리 가능',    lv:'ok'  },
+      { i:'🧊', n:'Blender 모델링',     d:'고폴리 모델링·텍스처 작업 쾌적',              lv:'ok'  },
+      { i:'💡', n:'3D 렌더링',          d:'중간 품질 3D 렌더링 원활, GPU 렌더 가능',      lv:'mid' },
+      { i:'🏢', n:'BIM (Revit 등)',      d:'중규모 BIM 프로젝트 가능',                    lv:'mid' },
+      { i:'🔬', n:'시뮬레이션',         d:'기초 CFD·구조 시뮬레이션 가능',               lv:'lo'  },
+    ],
+    140: [
+      { i:'📐', n:'AutoCAD·SolidWorks', d:'대형 어셈블리·복잡한 3D CAD 쾌적',            lv:'ok'  },
+      { i:'🧊', n:'Blender 모델링',     d:'고사양 씬·애니메이션 작업 원활',              lv:'ok'  },
+      { i:'💡', n:'3D 렌더링',          d:'고품질 GPU 렌더링 원활, 실시간 프리뷰 가능',   lv:'ok'  },
+      { i:'🏢', n:'BIM (Revit 등)',      d:'대규모 BIM 프로젝트 원활',                    lv:'ok'  },
+      { i:'🔬', n:'시뮬레이션',         d:'중급 시뮬레이션·유한요소 해석 가능',           lv:'mid' },
+    ],
+    160: [
+      { i:'📐', n:'AutoCAD·SolidWorks', d:'최고 수준 대형 어셈블리 제약 없음',            lv:'ok'  },
+      { i:'🧊', n:'Blender 모델링',     d:'영화 수준의 고사양 씬·VFX 작업 가능',         lv:'ok'  },
+      { i:'💡', n:'3D 렌더링',          d:'실시간 레이트레이싱·최고품질 렌더링 가능',     lv:'ok'  },
+      { i:'🏢', n:'BIM (Revit 등)',      d:'초대형 BIM 프로젝트·클라우드 연동 완벽',       lv:'ok'  },
+      { i:'🔬', n:'시뮬레이션',         d:'고급 CFD·구조·열해석 시뮬레이션 가능',         lv:'ok'  },
+    ],
+  },
+};
+
+let activeTab = 'fps';
+
+function getParam(k) { return new URLSearchParams(window.location.search).get(k); }
+function priceFmt(p) { if (!p || p < 10000) return null; return Math.round(p / 10000) + '만원'; }
+function shorten(s, n = 44) {
+  if (!s) return '-';
+  s = s.replace(/\s*\(.*?\)/g, '').trim();
+  return s.length > n ? s.slice(0, n - 1) + '…' : s;
+}
+function fpsColor(v, max) {
+  const r = v / max;
+  return r >= .65 ? 'fps-hi' : r >= .38 ? 'fps-mid' : r >= .18 ? 'fps-lo' : 'fps-xlo';
+}
+function fpsBarColor(r) {
+  return r >= .65 ? '#059669' : r >= .38 ? '#0284c7' : r >= .18 ? '#d97706' : '#e11d48';
+}
+function fpsDisplay(v) { return v >= 500 ? '500+' : String(v); }
+
+// ── Render ──
+const WORK_KEYS = ['video', 'office', 'modeling'];
+const LV_LABEL  = { ok:'원활', mid:'가능', lo:'제한', no:'비추' };
+
+function renderGameGrid(perf) {
+  if (WORK_KEYS.includes(activeTab)) {
+    const cat   = WORK_CATS[activeTab];
+    const items = cat[perf] || cat[100];
+    return `<div class="wgrid">${items.map(w => `
+      <div class="witem">
+        <span class="wico">${w.i}</span>
+        <div class="wbody">
+          <div class="wname">${w.n}</div>
+          <div class="wdesc">${w.d}</div>
+        </div>
+        <span class="wlv lv-${w.lv}">${LV_LABEL[w.lv]}</span>
+      </div>`).join('')}
+    </div>`;
+  }
+  const cat = GAME_CATS[activeTab];
+  if (!cat) return '';
+  return `<div class="ggrid">${cat.items.map(g => {
+    const v   = g.fps[perf] || 0;
+    const pct = Math.min(100, Math.round(v / g.max * 100));
+    return `<div class="gitem">
+      <span class="gname">${g.name}</span>
+      <span class="gfps ${fpsColor(v, g.max)}">${fpsDisplay(v)}<span class="unit"> fps</span></span>
+      <div class="gbar"><div class="gfill" style="width:${pct}%;background:${fpsBarColor(pct/100)}"></div></div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function renderInfoSection(p) {
+  const meta  = PERF_META[p.performance] || {};
+  const price = priceFmt(p.it_price);
+  const r     = RES[p.performance] || RES[100];
+  const tabs  = [
+    { key:'fps',      label:'🎯 FPS 게임' },
+    { key:'rpg',      label:'⚔️ RPG·MMORPG' },
+    { key:'lol',      label:'⚡ LoL 계열' },
+    { key:'video',    label:'🎬 영상편집' },
+    { key:'office',   label:'💼 사무용' },
+    { key:'modeling', label:'🏗️ 3D 모델링' },
+  ];
+  return `
+  <div class="section" id="perf-section">
+    <div class="info-head">
+      <div class="info-title-row">
+        <div class="hero-title">${p.title}</div>
+        <div class="hero-badges">
+          <span class="badge ${meta.cls}">${meta.emoji} ${meta.label}</span>
+          ${p.is_soldout ? '<span class="badge bsold">품절</span>' : ''}
+          ${price ? `<span class="badge bprice">${price}</span>` : ''}
+        </div>
+      </div>
+      <div class="hero-specs">
+        <div class="sr"><span class="sk">CPU</span><span class="sv hl">${shorten(p.cpu)}</span></div>
+        <div class="sr"><span class="sk">RAM</span><span class="sv">${shorten(p.ram)}</span></div>
+        <div class="sr"><span class="sk">GPU</span><span class="sv hl">${shorten(p.gpu)}</span></div>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+    <div class="sec-head" style="padding-top:13px">🖥️ 추천 해상도</div>
+    <div class="res-row">
+      <div class="rbadge ${RES_CLS[r.fhd]}">
+        <span class="rlabel">FHD · 1080p</span>
+        ${RES_ICON[r.fhd]} ${RES_TEXT[r.fhd]}
+      </div>
+      <div class="rbadge ${RES_CLS[r.qhd]}">
+        <span class="rlabel">QHD · 1440p</span>
+        ${RES_ICON[r.qhd]} ${RES_TEXT[r.qhd]}
+      </div>
+      <div class="rbadge ${RES_CLS[r.k4]}">
+        <span class="rlabel">4K · 2160p</span>
+        ${RES_ICON[r.k4]} ${RES_TEXT[r.k4]}
+      </div>
+    </div>
+    <div class="section-divider"></div>
+    <div class="sec-head" style="padding-top:13px">📊 게임·작업 성능 가이드 <span class="sec-sub">FHD 기준 예상 수치</span></div>
+    <div class="tabs">
+      ${tabs.map(t => `<button class="tab${activeTab===t.key?' on':''}" onclick="switchTab('${t.key}',${p.performance})">${t.label}</button>`).join('')}
+    </div>
+    <div id="game-grid">${renderGameGrid(p.performance)}</div>
+  </div>`;
+}
+
+const THUMB = 'https://admin.youngjaecomputer.com/data/item/';
+
+function renderCompItem(p) {
+  const price  = priceFmt(p.it_price);
+  const imgSrc = `${THUMB}${p.it_id}_l`;
+  return `
+  <a class="citem" href="${SHOP + p.it_id}" target="_blank">
+    <div class="cthumb-wrap">
+      <img class="cthumb" src="${imgSrc}" alt="${p.title}"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="cthumb-fallback" style="display:none">🖥️</div>
+    </div>
+    <div class="ctl">${p.title}</div>
+    <div class="csp">CPU: ${shorten(p.cpu, 36)}</div>
+    <div class="csp">GPU: ${shorten(p.gpu, 36)}</div>
+    ${price ? `<div class="cpri">≈ ${price}</div>` : ''}
+    <div class="citem-spacer"></div>
+    <span class="clnk">이 제품 보러가기</span>
+  </a>`;
+}
+
+function renderCompare(product, all) {
+  const idx   = PERF_ORDER.indexOf(product.performance);
+  const upP   = PERF_ORDER[idx + 1];
+  const loP   = PERF_ORDER[idx - 1];
+  const same  = all.filter(p => p.id !== product.id && p.performance === product.performance && !p.is_soldout).slice(0, 1);
+  const upper = upP ? all.filter(p => p.performance === upP  && !p.is_soldout).slice(0, 1) : [];
+  const lower = loP ? all.filter(p => p.performance === loP  && !p.is_soldout).slice(0, 1) : [];
+  const upMeta = upP ? PERF_META[upP] : null;
+  const loMeta = loP ? PERF_META[loP] : null;
+
+  return `
+  <div class="section">
+    <div class="sec-head">🔄 사양 비교 추천</div>
+    <div class="cmp-cols">
+      <div class="ccol">
+        <div class="clabel">🔄 동일 사양 대안</div>
+        ${same.length ? same.map(renderCompItem).join('') : '<div class="cempty">동일 사양<br>제품 없음</div>'}
+      </div>
+      <div class="ccol">
+        <div class="clabel">⬆️ 상급 제품 <span class="sub">${upMeta ? upMeta.label : ''}</span></div>
+        ${upper.length ? upper.map(renderCompItem).join('') : '<div class="cempty">최고 사양<br>입니다</div>'}
+      </div>
+      <div class="ccol">
+        <div class="clabel">💰 가성비 제품 <span class="sub">${loMeta ? loMeta.label : ''}</span></div>
+        ${lower.length ? lower.map(renderCompItem).join('') : '<div class="cempty">최저 사양<br>입니다</div>'}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderPage(product, all) {
+  document.getElementById('app').innerHTML = `
+    <div class="topbar">
+      <div>
+        <div class="brand">YOUNGJAE COMPUTER</div>
+        <div class="pagetitle">PC 성능 가이드</div>
+      </div>
+      <div class="live"><span class="dot"></span>실시간 연동</div>
+    </div>
+    ${renderInfoSection(product)}
+    ${renderCompare(product, all)}
+    <div class="footer">
+      <span class="ftxt">© 영재컴퓨터 · 데이터 실시간 연동</span>
+      <a class="kakaobtn" href="http://pf.kakao.com/_sxmjxgT/chat" target="_blank">💬 카카오톡 상담</a>
+    </div>`;
+}
+
+function switchTab(key, perf) {
+  activeTab = key;
+  document.querySelectorAll('.tab').forEach(b => {
+    b.classList.toggle('on', b.getAttribute('onclick').includes(`'${key}'`));
+  });
+  document.getElementById('game-grid').innerHTML = renderGameGrid(perf);
+  sendHeight();
+}
+
+function sendHeight() {
+  const h = document.body.scrollHeight;
+  window.parent.postMessage({ type: 'yjHeight', height: h }, '*');
+}
+
+// 높이 변화 감지 (탭 전환, 이미지 로드 등)
+const _ro = new ResizeObserver(() => sendHeight());
+_ro.observe(document.body);
+
+(async () => {
+  const itId = getParam('it_id');
+  if (!itId) {
+    document.getElementById('app').innerHTML = `
+      <div class="center">
+        <div style="font-size:30px">🔍</div>
+        <div style="font-size:13px;color:#374151">제품을 찾을 수 없습니다</div>
+        <div style="font-size:11px;color:#9ca3af">URL에 <code style="color:#3b52e4">?it_id=제품코드</code> 를 추가해주세요</div>
+      </div>`;
+    return;
+  }
+  try {
+    const h = { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` };
+    const [pRes, aRes] = await Promise.all([
+      fetch(`${SB_URL}/rest/v1/pc_products?it_id=eq.${itId}&select=*`, { headers: h }),
+      fetch(`${SB_URL}/rest/v1/pc_products?select=*&order=performance.asc,it_price.asc`, { headers: h }),
+    ]);
+    if (!pRes.ok || !aRes.ok) throw new Error('데이터 로드 실패');
+    const [products, all] = await Promise.all([pRes.json(), aRes.json()]);
+    if (!products.length) {
+      document.getElementById('app').innerHTML = `
+        <div class="center">
+          <div style="font-size:26px">😥</div>
+          <div style="color:#374151">제품 코드 <b>${itId}</b>를 찾을 수 없습니다</div>
+        </div>`;
+      return;
+    }
+    renderPage(products[0], all);
+  } catch (err) {
+    document.getElementById('app').innerHTML = `
+      <div class="center">
+        <div style="font-size:26px">⚠️</div>
+        <div style="color:#e11d48">${err.message}</div>
+      </div>`;
+  }
+})();
+</script>
+</body>
+</html>
